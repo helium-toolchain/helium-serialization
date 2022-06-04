@@ -25,7 +25,7 @@ public struct ValueStack<TItem> : IEnumerable<TItem>, IReadOnlyCollection<TItem>
 	/// </summary>
 	/// <param name="capacity">Specifies the initial capacity of the backing array.</param>
 	/// <param name="increment">Specifies the increment added to the backing array on every resize.</param>
-	public ValueStack(Int32 capacity, Int32 increment = 512)
+	public ValueStack(Int32 capacity, Int32 increment = 16)
 		: this(new TItem[capacity], increment)
 	{ }
 
@@ -35,7 +35,7 @@ public struct ValueStack<TItem> : IEnumerable<TItem>, IReadOnlyCollection<TItem>
 	/// <param name="collection">The starting collection for the backing array. Note that the current stack index
 	/// and the capacity are inferred from this collection, which may not always be desirable.</param>
 	/// <param name="increment">Specifies the increment added to the backing array on every resize.</param>
-	public ValueStack(IEnumerable<TItem> collection, Int32 increment = 512)
+	public ValueStack(IEnumerable<TItem> collection, Int32 increment = 16)
 	{
 		this.__items = collection.ToArray();
 		// following two lines: avoid LINQ calls where possible.
