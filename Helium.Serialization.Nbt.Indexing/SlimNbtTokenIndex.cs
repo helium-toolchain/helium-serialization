@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 /// </summary>
 // ensure we can cast this to and from a word.
 [StructLayout(LayoutKind.Sequential, Size = 64)]
-public readonly struct CompactNbtTokenIndex
+public readonly struct SlimNbtTokenIndex
 {
 	/// <summary>
 	/// Stores the offset from the blob origin at which this token starts.

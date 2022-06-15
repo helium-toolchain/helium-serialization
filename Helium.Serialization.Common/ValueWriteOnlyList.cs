@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-internal struct ValueWriteOnlyList<TItem> : IEnumerable<TItem>, IReadOnlyList<TItem>
+public struct ValueWriteOnlyList<TItem> : IEnumerable<TItem>, IReadOnlyList<TItem>
 {
 	private TItem[] __items;
 	private Int32 __index;

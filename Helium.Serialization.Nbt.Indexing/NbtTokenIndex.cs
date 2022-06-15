@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 /// specific operations, such as only deserializing the blob represented.
 /// </summary>
 [StructLayout(LayoutKind.Sequential, Size = 128)]
-public readonly struct DetailedNbtTokenIndex
+public readonly struct NbtTokenIndex
 {
 	/// <summary>
 	/// Stores the offset from the blob origin this token starts at.

@@ -5,4 +5,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Helium.Serialization.Common\Helium.Serialization.Common.csproj" />
+  </ItemGroup>
+
 </Project>
