@@ -25,7 +25,11 @@ public struct ValueStack<TItem> : IEnumerable<TItem>, IReadOnlyCollection<TItem>
 	/// </summary>
 	/// <param name="capacity">Specifies the initial capacity of the backing array.</param>
 	/// <param name="increment">Specifies the increment added to the backing array on every resize.</param>
-	public ValueStack(Int32 capacity, Int32 increment = 16)
+	public ValueStack
+	(
+		Int32 capacity,
+		Int32 increment = 16
+	)
 		: this(new TItem[capacity], increment)
 	{ }
 
@@ -35,7 +39,11 @@ public struct ValueStack<TItem> : IEnumerable<TItem>, IReadOnlyCollection<TItem>
 	/// <param name="collection">The starting collection for the backing array. Note that the current stack index
 	/// and the capacity are inferred from this collection, which may not always be desirable.</param>
 	/// <param name="increment">Specifies the increment added to the backing array on every resize.</param>
-	public ValueStack(IEnumerable<TItem> collection, Int32 increment = 16)
+	public ValueStack
+	(
+		IEnumerable<TItem> collection,
+		Int32 increment = 16
+	)
 	{
 		this.__items = collection.ToArray();
 		// following two lines: avoid LINQ calls where possible.
@@ -55,7 +63,13 @@ public struct ValueStack<TItem> : IEnumerable<TItem>, IReadOnlyCollection<TItem>
 	/// Note that <paramref name="index"/> and <paramref name="capacity"/> <b>need</b> to be correct under any
 	/// circumstances, otherwise exceptions will appear down the line and/or data loss will occur.
 	/// </remarks>
-	public ValueStack(IEnumerable<TItem> collection, Int32 index, Int32 capacity, Int32 increment)
+	public ValueStack
+	(
+		IEnumerable<TItem> collection,
+		Int32 index,
+		Int32 capacity,
+		Int32 increment
+	)
 	{
 		this.__items = collection.ToArray();
 		this.__index = index;
@@ -70,7 +84,10 @@ public struct ValueStack<TItem> : IEnumerable<TItem>, IReadOnlyCollection<TItem>
 	/// </summary>
 	/// <param name="item">The next item to land on the stack.</param>
 	/// <returns>The index at which the collection is currently at.</returns>
-	public Int32 Push(TItem item)
+	public Int32 Push
+	(
+		TItem item
+	)
 	{
 		this.resizeIfNecessary();
 
@@ -84,10 +101,13 @@ public struct ValueStack<TItem> : IEnumerable<TItem>, IReadOnlyCollection<TItem>
 	/// <param name="item">The item to push on the stack.</param>
 	/// <param name="index">The current index of the collection.</param>
 	/// <returns>Whether or not the attempt succeeded.</returns>
-	public Boolean TryPush(TItem item,
+	public Boolean TryPush
+	(
+		TItem item,
 
 		[MaybeNullWhen(false)]
-		out Int32? index)
+		out Int32? index
+	)
 	{
 		index = null;
 
@@ -121,10 +141,11 @@ public struct ValueStack<TItem> : IEnumerable<TItem>, IReadOnlyCollection<TItem>
 	/// </summary>
 	/// <param name="item">The item returned. <see langword="default"/> if the item could not be returned.</param>
 	/// <returns>Whether the attempt was successful.</returns>
-	public Boolean TryPop(
-
+	public Boolean TryPop
+	(
 		[MaybeNullWhen(false)]
-		out TItem? item)
+		out TItem? item
+	)
 	{
 		item = default;
 
@@ -152,7 +173,10 @@ public struct ValueStack<TItem> : IEnumerable<TItem>, IReadOnlyCollection<TItem>
 	/// <summary>
 	/// Peeks at the item <paramref name="offset"/> items away from the current peak of the collection.
 	/// </summary>
-	public TItem Peek(Int32 offset)
+	public TItem Peek
+	(
+		Int32 offset
+	)
 	{
 		return this.__items[this.__index - offset];
 	}
@@ -161,7 +185,10 @@ public struct ValueStack<TItem> : IEnumerable<TItem>, IReadOnlyCollection<TItem>
 	/// Peeks at all items from the current peak of the collection to <paramref name="offset"/> items downwards.
 	/// </summary>
 	/// <param name="offset"></param>
-	public IEnumerable<TItem> PeekRange(Int32 offset)
+	public IEnumerable<TItem> PeekRange
+	(
+		Int32 offset
+	)
 	{
 		return this.__items.Take((this.__index - offset)..);
 	}
