@@ -40,4 +40,15 @@ public readonly unsafe ref partial struct NbtIndexer
 	/// implies whether the current process runs on aarch64 rather than x64.
 	/// </summary>
 	public readonly static Boolean AdvSimdSupport = AdvSimd.IsSupported;
+
+	/// <summary>
+	/// Creates a new indexer from the given blob.
+	/// </summary>
+	public NbtIndexer
+	(
+		Span<Byte> blob
+	)
+	{
+		this.Blob = blob;
+	}
 }
