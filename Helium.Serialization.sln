@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helium.Serialization.Nbt", "Helium.Serialization.Nbt\Helium.Serialization.Nbt.csproj", "{CC67CA51-0583-404F-802B-57E7C85CA881}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helium.Serialization.Nbt.MemoryMapping", "Helium.Serialization.Nbt.MemoryMapping\Helium.Serialization.Nbt.MemoryMapping.csproj", "{E22D9CB1-F3CA-473E-AF86-EA1F1790D17C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helium.Serialization.Common", "Helium.Serialization.Common\Helium.Serialization.Common.csproj", "{8A79148E-B1E5-4662-A1C7-5D32D3F2DAB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{CC67CA51-0583-404F-802B-57E7C85CA881}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC67CA51-0583-404F-802B-57E7C85CA881}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC67CA51-0583-404F-802B-57E7C85CA881}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E22D9CB1-F3CA-473E-AF86-EA1F1790D17C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E22D9CB1-F3CA-473E-AF86-EA1F1790D17C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E22D9CB1-F3CA-473E-AF86-EA1F1790D17C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E22D9CB1-F3CA-473E-AF86-EA1F1790D17C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A79148E-B1E5-4662-A1C7-5D32D3F2DAB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A79148E-B1E5-4662-A1C7-5D32D3F2DAB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A79148E-B1E5-4662-A1C7-5D32D3F2DAB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A79148E-B1E5-4662-A1C7-5D32D3F2DAB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

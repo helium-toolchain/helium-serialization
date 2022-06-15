@@ -1,12 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <Import Project="../Helium.Serialization.targets"/>
-    <Import Project="../BundleGitInfo.targets"/>
+    <Import Project="../Helium.Serialization.targets" />
+    <Import Project="../BundleGitInfo.targets" />
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <Version>0.1.0</Version>
     </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Helium.Serialization.Common\Helium.Serialization.Common.csproj" />
+    </ItemGroup>
 
 </Project>

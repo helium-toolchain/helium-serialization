@@ -1,4 +1,4 @@
-namespace Helium.Serialization.Nbt.MemoryMapping;
+namespace Helium.Serialization.Common;
 
 using System;
 using System.Collections;
