@@ -5,11 +5,6 @@ using System;
 /// <summary>
 /// Represents the various NBT token types there are.
 /// </summary>
-/// <remarks>
-/// END tokens (0x00) are not represented here, as the library never treats them as their own,
-/// independent token. In the rare cases where we do treat 0x00 END separately, using an enum type
-/// hinders the JITs ability to optimize correctly.
-/// </remarks>
 /* 
  * Obviously, inheriting from Int16 here is wasteful, but it helps with memory alignment in
  * DetailedTokenIndex, which can be exactly represented by a doubleword. It also helps coreclr
@@ -18,7 +13,8 @@ using System;
 */
 public enum NbtTokenType : Int16
 {
-	SByte = 1,
+	End,
+	SByte,
 	Int16,
 	Int32,
 	Int64,
