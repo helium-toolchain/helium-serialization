@@ -5,9 +5,11 @@ VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helium.Serialization.Nbt", "Helium.Serialization.Nbt\Helium.Serialization.Nbt.csproj", "{CC67CA51-0583-404F-802B-57E7C85CA881}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helium.Serialization.Common", "Helium.Serialization.Common\Helium.Serialization.Common.csproj", "{8A79148E-B1E5-4662-A1C7-5D32D3F2DAB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helium.Serialization.Common", "Helium.Serialization.Common\Helium.Serialization.Common.csproj", "{8A79148E-B1E5-4662-A1C7-5D32D3F2DAB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helium.Serialization.Nbt.Indexing", "Helium.Serialization.Nbt.Indexing\Helium.Serialization.Nbt.Indexing.csproj", "{6D2CB486-36D9-4D67-86E9-FF832AF1E35F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helium.Serialization.Nbt.Indexing", "Helium.Serialization.Nbt.Indexing\Helium.Serialization.Nbt.Indexing.csproj", "{6D2CB486-36D9-4D67-86E9-FF832AF1E35F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helium.Serialization", "Helium.Serialization\Helium.Serialization.csproj", "{30AFD7E6-0407-4774-BBC9-3A9F3C364038}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{6D2CB486-36D9-4D67-86E9-FF832AF1E35F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D2CB486-36D9-4D67-86E9-FF832AF1E35F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D2CB486-36D9-4D67-86E9-FF832AF1E35F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30AFD7E6-0407-4774-BBC9-3A9F3C364038}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30AFD7E6-0407-4774-BBC9-3A9F3C364038}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30AFD7E6-0407-4774-BBC9-3A9F3C364038}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30AFD7E6-0407-4774-BBC9-3A9F3C364038}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

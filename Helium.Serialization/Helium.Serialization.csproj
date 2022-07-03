@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="../Helium.Serialization.targets"/>
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\Helium.Serialization.Common\Helium.Serialization.Common.csproj" />
+        <ProjectReference Include="..\Helium.Serialization.Nbt.Indexing\Helium.Serialization.Nbt.Indexing.csproj" />
+        <ProjectReference Include="..\Helium.Serialization.Nbt\Helium.Serialization.Nbt.csproj" />
+    </ItemGroup>
+
+</Project>
