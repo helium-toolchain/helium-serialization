@@ -8,10 +8,13 @@ using Helium.Serialization.Nbt.Indexing.Internal;
 
 public readonly unsafe ref partial struct NbtIndexer
 {
-	public readonly SlimNbtIndexTree IndexWholeTree()
+	/// <summary>
+	/// Indexes the entire blob and returns a slim tree.
+	/// </summary>
+	public readonly SlimNbtIndexNode IndexWholeTreeSlim()
 	{
 		// the root token that wraps the entire compound
-		SlimNbtIndexTree root = new()
+		SlimNbtIndexNode root = new()
 		{
 			CurrentToken = new()
 			{
@@ -22,6 +25,10 @@ public readonly unsafe ref partial struct NbtIndexer
 
 		// a stack to keep track of whatever it is that we're currently deserializing
 		ValueStack<IndexerState> stateStack = new(16);
+
+		// our tokens to live with
+		ValueStack<SlimNbtIndexNode> indexStack = new(16);
+		indexStack.Push(root);
 
 		// the index we're currently constructing
 		SlimNbtTokenIndex currentIndex;
@@ -82,6 +89,18 @@ public readonly unsafe ref partial struct NbtIndexer
 				stateStack.Push(state);
 
 				continue;
+			}
+
+			if(workingRegister[0] == 0x00)
+			{
+				if(stateStack.Peek().CurrentToken != NbtTokenType.Compound)
+				{
+					ThrowHelper.ThrowOnInvalidEndToken();
+				}
+
+				IndexerState compoundState = stateStack.Pop();
+
+
 			}
 		}
 

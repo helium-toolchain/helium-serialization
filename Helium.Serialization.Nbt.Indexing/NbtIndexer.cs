@@ -3,8 +3,8 @@ namespace Helium.Serialization.Nbt.Indexing;
 using System;
 
 /// <summary>
-/// Constitutes an indexer, capable of extracting either a <seealso cref="NbtIndexTree"/>
-/// or a <seealso cref="SlimNbtIndexTree"/> from the given blob.
+/// Constitutes an indexer, capable of extracting either a <seealso cref="NbtIndexNode"/>
+/// or a <seealso cref="SlimNbtIndexNode"/> from the given blob.
 /// </summary>
 public readonly unsafe ref partial struct NbtIndexer
 {

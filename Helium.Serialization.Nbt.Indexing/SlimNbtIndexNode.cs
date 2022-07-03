@@ -4,17 +4,18 @@ using Helium.Serialization.Common;
 
 /// <summary>
 /// Represents a snapshot of a NBT token tree, with information about the current token
-/// and optional information of this tokens' children.
+/// and optional information of this tokens' children, while using less memory than
+/// <see cref="NbtIndexNode"/>, in exchange for less useful information.
 /// </summary>
-public struct NbtIndexTree
+public struct SlimNbtIndexNode
 {
 	/// <summary>
 	/// Represents information about this current token.
 	/// </summary>
-	public NbtTokenIndex CurrentToken { get; init; }
+	public SlimNbtTokenIndex CurrentToken { get; init; }
 
 	/// <summary>
 	/// Potentially represents information about this tokens' child tokens.
 	/// </summary>
-	public ValueWriteOnlyList<NbtTokenIndex>? Children { get; init; }
+	public ValueWriteOnlyList<SlimNbtIndexNode>? Children { get; init; }
 }
