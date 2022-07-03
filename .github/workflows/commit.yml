@@ -18,7 +18,7 @@ jobs:
         dotnet-version: 7.0.100-preview.4.22252.9
 
     - name: restore
-      run: dotnet restore Starnight
+      run: dotnet restore Helium.Serialization
 
     - name: pack packages
       run: "mkdir build && dotnet pack Helium.Serialization -p:SymbolPackageFormat=snupkg --include-symbols --include-source -o build -p:BuildNumber=${{ github.run_number }}"
@@ -26,5 +26,5 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.4
       with:
-        name: Starnight
+        name: helium-serialization
         path: ./build/
