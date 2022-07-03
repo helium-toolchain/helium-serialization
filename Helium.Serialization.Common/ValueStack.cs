@@ -165,20 +165,20 @@ public struct ValueStack<TItem> : IEnumerable<TItem>, IReadOnlyCollection<TItem>
 	/// <summary>
 	/// Peeks at the current peak of the collection.
 	/// </summary>
-	public TItem Peek()
+	public ref TItem Peek()
 	{
-		return this.__items[this.__index];
+		return ref this.__items[this.__index];
 	}
 
 	/// <summary>
 	/// Peeks at the item <paramref name="offset"/> items away from the current peak of the collection.
 	/// </summary>
-	public TItem Peek
+	public ref TItem Peek
 	(
 		Int32 offset
 	)
 	{
-		return this.__items[this.__index - offset];
+		return ref this.__items[this.__index - offset];
 	}
 
 	/// <summary>
