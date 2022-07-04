@@ -12,7 +12,7 @@ public struct SlimNbtIndexNode
 	/// <summary>
 	/// Represents information about this current token.
 	/// </summary>
-	public SlimNbtTokenIndex CurrentToken { get; init; }
+	public SlimNbtTokenIndex CurrentToken { get; set; }
 
 	/// <summary>
 	/// Potentially represents information about this tokens' child tokens.
