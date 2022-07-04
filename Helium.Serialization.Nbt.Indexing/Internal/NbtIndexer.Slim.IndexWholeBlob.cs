@@ -2,6 +2,7 @@ namespace Helium.Serialization.Nbt.Indexing;
 
 using System;
 using System.Buffers.Binary;
+using System.Runtime.CompilerServices;
 
 using Helium.Serialization.Common;
 using Helium.Serialization.Nbt.Indexing.Internal;
@@ -11,6 +12,7 @@ public readonly unsafe ref partial struct NbtIndexer
 	/// <summary>
 	/// Indexes the entire blob and returns a slim tree.
 	/// </summary>
+	[SkipLocalsInit]
 	public readonly SlimNbtIndexNode IndexWholeTreeSlim()
 	{
 		// the root token that wraps the entire compound
@@ -53,6 +55,30 @@ public readonly unsafe ref partial struct NbtIndexer
 
 			// increment offset after this operation has completed
 			workingRegister = this.Blob.Slice(offset++, 1);
+
+			// list handling
+
+			IndexerState listState = stateStack.Peek();
+
+			if(listState.CurrentToken == NbtTokenType.List)
+			{
+				listState.RemainingChildren--;
+
+				if(listState.RemainingChildren >= 0)
+				{
+					stateStack.Pop();
+
+					indexStack.Peek().CurrentToken = new()
+					{
+						StartOffset = listState.StartIndex,
+						EndOffset = startOffset
+					};
+
+					indexStack.Pop();
+				}
+			}
+
+			// special-case tokens
 
 			// this could be a switch statement, but an if chain is faster here. 
 
