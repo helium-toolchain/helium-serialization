@@ -78,4 +78,5 @@ $(CPP_CASTLE_OBJ)/%.o : $(CPP_CASTLE_FILES)
 	@$(CPP_COMPILER) -I$(CPP_CASTLE_FILES) $(CPP_FLAGS) -c $< -o $@
 
 clean : 
-	-rm $(BUILD)
+	-rm -rf $(BUILD)
+	-rm -rf obj
