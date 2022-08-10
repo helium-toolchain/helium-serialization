@@ -82,8 +82,7 @@ UInt128Array | UInt128[] | 1C | undefined | ^
 HalfArray | Half[] | 1E | undefined | ^
 SingleArray | Single[] | 1F | undefined | ^
 DoubleArray | Double[] | 20 | undefined | ^
-Guid | Guid | 21 | 16 | -
-List | List<T> | 22 | undefined | see explanation
-Compound | - | 23 | undefined | see explanation
+List | List<T> | 21 | undefined | see explanation
+Compound | - | 22 | undefined | see explanation
 
 An undefined payload length means the payload length is not statically known just from the type.
