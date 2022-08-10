@@ -40,7 +40,7 @@ nbt : dotnet_nbt c_nbt cpp_nbt
 castle : dotnet_castle c_castle cpp_castle
 
 # for dotnet we actually have a shared library to build
-dotnet : $(wildcard $(DOTNET_SRC/*)
+dotnet : $(wildcard $(DOTNET_SRC/*))
 	@dotnet build -o $(BUILD)
 
 c : c_nbt c_castle
