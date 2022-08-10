@@ -22,7 +22,7 @@ Each Castle token is built in the following structure:
 > 
 > Token name ID: 2 bytes
 
-The token length field is stataically known for primitive tokens and does not need to be deserialized, however, it is still required to be present and correct.
+The token length field is statically known for primitive tokens and does not need to be deserialized, however, it is still required to be present and correct.
 
 The name ID `FF FF` (65535) is reserved for cases where no name is given.
 
