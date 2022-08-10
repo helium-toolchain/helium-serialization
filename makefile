@@ -7,10 +7,10 @@ C_SRC = src/c
 CPP_SRC = src/cpp
 BUILD := build
 TEMP_DIRECTORY := temp
-C_NBT_OBJ := obj/c/nbt
-C_CASTLE_OBJ := obj/c/castle
-CPP_NBT_OBJ := obj/cpp/nbt
-CPP_CASTLE_OBJ := obj/cpp/castle
+C_NBT_OBJ_DIR := obj/c/nbt
+C_CASTLE_OBJ_DIR := obj/c/castle
+CPP_NBT_OBJ_DIR := obj/cpp/nbt
+CPP_CASTLE_OBJ_DIR := obj/cpp/castle
 
 # todo: add more to these as more are created
 DOTNET_NBT_DIRECTORIES := Helium.Serialization.Common \
@@ -33,6 +33,12 @@ C_CASTLE_FILES := $(wildcard $(C_SRC)/castle/*.c)
 CPP_NBT_FILES := $(wildcard $(CPP_SRC)/nbt/*.cpp) $(C_NBT_FILES)
 CPP_CASTLE_FILES := $(wildcard $(CPP_SRC)/nbt/*.cpp) $(CPP_NBT_FILES)
 
+C_NBT_OBJECTS := $(patsubst $(C_NBT_FILES)/%.c, $(C_NBT_OBJ_DIR)/%.o, $(C_NBT_FILES))
+C_CASTLE_OBJECTS := $(patsubst $(C_CASTLE_FILES)/%.c, $(C_CASTLE_OBJ_DIR)/%.o, $(C_CASTLE_FILES))
+
+CPP_NBT_OBJECTS := $(patsubst $(CPP_NBT_FILES)/%.c, $(CPP_NBT_OBJ_DIR)/%.o, $(CPP_NBT_FILES))
+CPP_CASTLE_OBJECTS := $(patsubst $(CPP_CASTLE_FILES)/%.c, $(CPP_CASTLE_OBJ_DIR)/%.o, $(CPP_CASTLE_FILES))
+
 all : dotnet c cpp
 
 nbt : dotnet_nbt c_nbt cpp_nbt
@@ -53,28 +59,28 @@ dotnet_nbt : $(DOTNET_NBT_FILES)
 dotnet_castle: $(DOTNET_CASTLE_FILES)
 	@dotnet build -o $(BUILD) ./$(DOTNET_SRC)/Helium.Serialization.Castle
 
-c_nbt : $(C_NBT_OBJ)
-	@$(C_COMPILER) -shared -o $(BUILD)/libheliumcnbt.so
+c_nbt : $(C_NBT_OBJECTS)
+	@$(C_COMPILER) -shared $^ -o $(BUILD)/libheliumcnbt.so
 
-c_castle : $(C_CASTLE_OBJ)
-	@$(C_COMPILER) -shared -o $(BUILD)/libheliumccastle.so
+c_castle : $(C_CASTLE_OBJECTS)
+	@$(C_COMPILER) -shared $^ -o $(BUILD)/libheliumccastle.so
 
-cpp_nbt : $(CPP_NBT_OBJ)
-	@$(C_COMPILER) -shared -o $(BUILD)/libheliumcppnbt.so
+cpp_nbt : $(CPP_NBT_OBJECTS)
+	@$(C_COMPILER) -shared $^ -o $(BUILD)/libheliumcppnbt.so
 
-cpp_castle : $(CPP_CASTLE_OBJ)
-	@$(C_COMPILER) -shared -o $(BUILD)/libheliumcppcastle.so
+cpp_castle : $(CPP_CASTLE_OBJECTS)
+	@$(C_COMPILER) -shared $^ -o $(BUILD)/libheliumcppcastle.so
 
-$(C_NBT_OBJ)/%.o : $(C_NBT_FILES)
+$(C_NBT_OBJ_DIR)/%.o : $(C_NBT_FILES)
 	@$(C_COMPILER) -I$(C_NBT_FILES) $(C_FLAGS) -c $< -o $@
 
-$(C_CASTLE_OBJ)/%.o : $(C_CASTLE_FILES)
+$(C_CASTLE_OBJ_DIR)/%.o : $(C_CASTLE_FILES)
 	@$(C_COMPILER) -I$(C_CASTLE_FILES) $(C_FLAGS) -c $< -o $@
 
-$(CPP_NBT_OBJ)/%.o : $(CPP_NBT_FILES)
+$(CPP_NBT_OBJ_DIR)/%.o : $(CPP_NBT_FILES)
 	@$(CPP_COMPILER) -I$(C_NBT_FILES) $(C_FLAGS) -c $< -o $@
 
-$(CPP_CASTLE_OBJ)/%.o : $(CPP_CASTLE_FILES)
+$(CPP_CASTLE_OBJ_DIR)/%.o : $(CPP_CASTLE_FILES)
 	@$(CPP_COMPILER) -I$(CPP_CASTLE_FILES) $(CPP_FLAGS) -c $< -o $@
 
 clean : 
