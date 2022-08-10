@@ -155,27 +155,9 @@ public readonly unsafe ref partial struct NbtIndexer
 
 			// non-special-case tokens
 
-			// list handling
+			controlRegister = this.Blob[offset..2];
 
-			IndexerState listState = stateStack.Peek();
-
-			if(listState.CurrentToken == NbtTokenType.List)
-			{
-				listState.RemainingChildren--;
-
-				if(listState.RemainingChildren >= 0)
-				{
-					stateStack.Pop();
-
-					indexStack.Peek().CurrentToken = new()
-					{
-						StartOffset = listState.StartIndex,
-						EndOffset = startOffset
-					};
-
-					indexStack.Pop();
-				}
-			}
+			offset += BinaryPrimitives.ReadInt16BigEndian(controlRegister);
 		}
 
 		return root;
