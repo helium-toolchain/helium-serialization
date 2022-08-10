@@ -33,11 +33,11 @@ C_CASTLE_FILES := $(wildcard $(C_SRC)/castle/*.c)
 CPP_NBT_FILES := $(wildcard $(CPP_SRC)/nbt/*.cpp) $(C_NBT_FILES)
 CPP_CASTLE_FILES := $(wildcard $(CPP_SRC)/nbt/*.cpp) $(CPP_NBT_FILES)
 
-C_NBT_OBJECTS := $(patsubst $(C_NBT_FILES)/%.c, $(C_NBT_OBJ_DIR)/%.o, $(C_NBT_FILES))
-C_CASTLE_OBJECTS := $(patsubst $(C_CASTLE_FILES)/%.c, $(C_CASTLE_OBJ_DIR)/%.o, $(C_CASTLE_FILES))
+C_NBT_OBJECTS := $(wildcard $(C_NBT_OBJ_DIR)/*.o)
+C_CASTLE_OBJECTS := $(wildcard $(C_CASTLE_OBJ_DIR)/*.o)
 
-CPP_NBT_OBJECTS := $(patsubst $(CPP_NBT_FILES)/%.c, $(CPP_NBT_OBJ_DIR)/%.o, $(CPP_NBT_FILES))
-CPP_CASTLE_OBJECTS := $(patsubst $(CPP_CASTLE_FILES)/%.c, $(CPP_CASTLE_OBJ_DIR)/%.o, $(CPP_CASTLE_FILES))
+CPP_NBT_OBJECTS := $(wildcard $(CPP_NBT_OBJ_DIR)/*.o)
+CPP_CASTLE_OBJECTS := $(wildcard $(CPP_CASTLE_OBJ_DIR)/*.o)
 
 all : dotnet c cpp
 
