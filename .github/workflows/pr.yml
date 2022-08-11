@@ -16,5 +16,11 @@ jobs:
         with:
           dotnet-version: "7.0.100-preview.4.22252.9"
 
-      - name: "Build PR"
-        run: "dotnet build"
+      - name: set up clang
+        uses: egor-tensin/setup-clang@v1
+        with:
+          version: latest
+          platform: x64
+
+      - name: build all
+        run: make all

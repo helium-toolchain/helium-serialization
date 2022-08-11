@@ -20,8 +20,14 @@ jobs:
     - name: restore
       run: dotnet restore Helium.Serialization
 
-    - name: pack packages
-      run: "mkdir build && dotnet pack Helium.Serialization -p:SymbolPackageFormat=snupkg --include-symbols --include-source -o build -p:BuildNumber=${{ github.run_number }}"
+    - name: set up clang
+      uses: egor-tensin/setup-clang@v1
+      with:
+        version: latest
+        platform: x64
+
+    - name: build all
+      run: make all
     
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.4
