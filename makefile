@@ -47,17 +47,17 @@ castle : dotnet_castle c_castle cpp_castle
 
 # for dotnet we actually have a shared library to build
 dotnet : $(wildcard $(DOTNET_SRC/*))
-	@dotnet pack -o $(BUILD) -p:SymbolPackageFormat=snupkg --include-symbols --include-source -o build
+	@dotnet pack -o $(BUILD) -p:SymbolPackageFormat=snupkg --include-symbols --include-source
 
 c : c_nbt c_castle
 
 cpp : cpp_nbt cpp_castle
 
 dotnet_nbt : $(DOTNET_NBT_FILES)
-	@dotnet pack -o $(BUILD) ./$(DOTNET_SRC)/Helium.Serialization.Nbt -p:SymbolPackageFormat=snupkg --include-symbols --include-source -o build 
+	@dotnet pack -o $(BUILD) ./$(DOTNET_SRC)/Helium.Serialization.Nbt -p:SymbolPackageFormat=snupkg --include-symbols --include-source
 
 dotnet_castle: $(DOTNET_CASTLE_FILES)
-	@dotnet pack -o $(BUILD) ./$(DOTNET_SRC)/Helium.Serialization.Castle -p:SymbolPackageFormat=snupkg --include-symbols --include-source -o build 
+	@dotnet pack -o $(BUILD) ./$(DOTNET_SRC)/Helium.Serialization.Castle -p:SymbolPackageFormat=snupkg --include-symbols --include-source 
 
 c_nbt : $(C_NBT_OBJECTS)
 	@$(C_COMPILER) -shared $^ -o $(BUILD)/libheliumcnbt.so
