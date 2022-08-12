@@ -19,4 +19,6 @@ int validate_slim_castle_index(const struct slim_castle_index index);
 
 int validate_castle_index(const struct castle_index index);
 
+int validate_castle_index_tree(const struct castle_index index, const struct castle_index parent, const struct castle_index *siblings, const int32_t sibling_count);
+
 #endif

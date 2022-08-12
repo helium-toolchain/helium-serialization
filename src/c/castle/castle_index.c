@@ -1,9 +1,12 @@
 #include "castle_index.h"
 
+// Validates a slim castle index for length, as no other information is given to a slim castle index.
 inline int validate_slim_castle_index(const struct slim_castle_index index) {
     return index.token_origin_offset + index.token_length < 2147483647;
 }
 
+// Validates a castle index, establishing whether it contains spec-compliant information.
+// It is not validated in the context of the entire index tree, validate_castle_index_tree serves for that purpose.
 int validate_castle_index(const struct castle_index index) {
     // complexity is either 0, 1 or 2
     if(index.token_complexity > 2) {
@@ -40,4 +43,32 @@ int validate_castle_index(const struct castle_index index) {
 
     // if everything succeeds, return whether theposition is valid
     return validate_slim_castle_index(index.token_position);
+}
+
+// Validates a castle index along with its parent and siblings for length and token validity. Siblings and parent are not validated.
+int validate_castle_index_tree
+    (const struct castle_index index, const struct castle_index parent, const struct castle_index *siblings, const int32_t sibling_count) {
+    // first, validate whether the token itself is valid
+    if(!validate_castle_index(index)) {
+        return 0;
+    }
+
+    // second, validate whether the lengths match up
+    uint32_t total_length = index.token_position.token_length + 8;
+
+    if(total_length > parent.token_position.token_length) {
+        return 0;
+    }
+
+    for(int32_t i = 0; i < sibling_count; i++) {
+        total_length += siblings[i].token_position.token_length + 8;
+
+        if(total_length >= parent.token_position.token_length) {
+            return 0;
+        }
+    }
+
+    // these two are never equal, the combined length of all child tokens with their headers is always less than
+    // the length of the parent token because of additional metadata, such as list/compound length or the root name index
+    return total_length < parent.token_position.token_length;
 }
