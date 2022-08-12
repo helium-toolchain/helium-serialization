@@ -50,39 +50,39 @@ The immediate child tokens of lists do have a token header, but no name - they u
 
 Name | .NET name | ID | Payload length | Notes
 ---- | --------- | -- | -------------- | -----
-Root | - | 00 | undefined | see explanation
-Byte | Byte | 01 | 1 | -
-SByte | SByte | 02 | 1 | -
-Int16 | Int16 | 03 | 2 | -
-UInt16 | UInt16 | 04 | 2 | -
-Int32 | Int32 | 05 | 4 | -
-UInt32 | UInt32 | 06 | 4 | -
-Int64 | Int64 | 07 | 8 | -
-UInt64 | UInt64 | 08 | 8 | -
-Int128 | Int128 | 09 | 16 | -
-UInt128 | UInt128 | 0A | 16 | -
-Half | Half | 0B | 2 | -
-Single | Single | 0C | 4 | -
-Double | Double | 0D | 8 | -
-String | ReadOnlySpan\<Byte> | 0E | undefined | 2 bytes defining the length of the string, followed by the string in UTF-8. in libraries, this should be represented as `System.String` regardless.
-String16 | String | 0F | undefined | 2 bytes defining the amount of UTF-16 characters in the string, followed by the string in UTF-16. The total binary length of the string is therefore twice the given length.
-DateTime | DateTimeOffset | 10 | 10 | first 8 bytes define the `DateTimeOffset.Ticks` property, latter 2 bytes store the offset from UTC in minutes.
-Date | DateOnly | 11 | 4 | the 4 bytes define the `DateOnly.DayNumber` property.
-Time | TimeOnly | 12 | 8 | the 8 bytes define the `TimeOnly.Ticks` property.
-ByteArray | Byte[] | 13 | undefined | 2 bytes defining the length of the array, followed by the array
-SByteArray | SByte[] | 14 | undefined | ^
-Int16Array | Int16[] | 15 | undefined | ^
-UInt16Array | UInt16[] | 16 | undefined | ^
-Int32Array | Int32[] | 17 | undefined | ^
-UInt32Array | UInt32[] | 18 | undefined | ^
-Int64Array | Int64[] | 19 | undefined | ^
-UInt64Array | UInt64[] | 1A | undefined | ^
-Int128Array | Int128[] | 1B | undefined | ^
-UInt128Array | UInt128[] | 1C | undefined | ^
-HalfArray | Half[] | 1E | undefined | ^
-SingleArray | Single[] | 1F | undefined | ^
-DoubleArray | Double[] | 20 | undefined | ^
-List | List<T> | 21 | undefined | see explanation
-Compound | - | 22 | undefined | see explanation
+Root | - | 80 | undefined | see explanation
+Byte | Byte | 20 | 1 | -
+SByte | SByte | 21 | 1 | -
+Int16 | Int16 | 22 | 2 | -
+UInt16 | UInt16 | 23 | 2 | -
+Int32 | Int32 | 24 | 4 | -
+UInt32 | UInt32 | 25 | 4 | -
+Int64 | Int64 | 26 | 8 | -
+UInt64 | UInt64 | 27 | 8 | -
+Int128 | Int128 | 28 | 16 | -
+UInt128 | UInt128 | 29 | 16 | -
+Half | Half | 2A | 2 | -
+Single | Single | 2B | 4 | -
+Double | Double | 2C | 8 | -
+DateTime | DateTimeOffset | 2D | 10 | first 8 bytes define the `DateTimeOffset.Ticks` property, latter 2 bytes store the offset from UTC in minutes.
+Date | DateOnly | 2E | 4 | the 4 bytes define the `DateOnly.DayNumber` property.
+Time | TimeOnly | 2F | 8 | the 8 bytes define the `TimeOnly.Ticks` property.
+String | ReadOnlySpan\<Byte> | 40 | undefined | 2 bytes defining the length of the string, followed by the string in UTF-8. in libraries, this should be represented as `System.String` regardless.
+String16 | String | 41 | undefined | 2 bytes defining the amount of UTF-16 characters in the string, followed by the string in UTF-16. The total binary length of the string is therefore twice the given length.
+ByteArray | Byte[] | 42 | undefined | 2 bytes defining the length of the array, followed by the array
+SByteArray | SByte[] | 43 | undefined | ^
+Int16Array | Int16[] | 44 | undefined | ^
+UInt16Array | UInt16[] | 45 | undefined | ^
+Int32Array | Int32[] | 46 | undefined | ^
+UInt32Array | UInt32[] | 47 | undefined | ^
+Int64Array | Int64[] | 48 | undefined | ^
+UInt64Array | UInt64[] | 49 | undefined | ^
+Int128Array | Int128[] | 4A | undefined | ^
+UInt128Array | UInt128[] | 4B | undefined | ^
+HalfArray | Half[] | 4C | undefined | ^
+SingleArray | Single[] | 4D | undefined | ^
+DoubleArray | Double[] | 4E | undefined | ^
+List | List<T> | 81 | undefined | see explanation
+Compound | - | 82 | undefined | see explanation
 
 An undefined payload length means the payload length is not statically known just from the type.
