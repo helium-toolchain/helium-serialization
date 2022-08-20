@@ -6,7 +6,7 @@ using System;
 /// Constitutes an indexer, capable of extracting either a <seealso cref="NbtIndexNode"/>
 /// or a <seealso cref="SlimNbtIndexNode"/> from the given blob.
 /// </summary>
-public readonly unsafe ref partial struct NbtIndexer
+public readonly ref partial struct NbtIndexer
 {
 	/// <summary>
 	/// The data blob this indexer is working with.

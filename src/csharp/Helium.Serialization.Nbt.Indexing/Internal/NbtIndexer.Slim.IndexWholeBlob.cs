@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using Helium.Serialization.Common;
 using Helium.Serialization.Nbt.Indexing.Internal;
 
-public readonly unsafe ref partial struct NbtIndexer
+public readonly ref partial struct NbtIndexer
 {
 	/// <summary>
 	/// Indexes the entire blob and returns a slim tree.
@@ -33,11 +33,8 @@ public readonly unsafe ref partial struct NbtIndexer
 		ValueStack<SlimNbtIndexNode> indexStack = new(16);
 		indexStack.Push(root);
 
-		// the length of the array we're currently working on
-		Int32 arrayLength = 0;
-
 		// the current offset from the start and the offset we started the current token at
-		Int32 offset = 0, startOffset = 0;
+		Int32 offset = 0, startOffset;
 
 		// the spans we represent our data with
 		Span<Byte> workingRegister, controlRegister, referenceRegister;
