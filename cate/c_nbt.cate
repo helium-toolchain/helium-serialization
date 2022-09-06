@@ -1,0 +1,8 @@
+Library nbt(dynamic);
+nbt.compiler = "clang";
+nbt.flags = "-std=c17 -O3 -fasm -fms-extensions";
+nbt.out = "build/libheliumcnbt.so";
+nbt.files = recursive("src/c/nbt/*.c");
+nbt.includes = {"src/c/nbt/"};
+nbt.object_folder = "obj/";
+nbt.build();

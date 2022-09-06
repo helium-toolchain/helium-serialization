@@ -1,0 +1,8 @@
+Library castle(dynamic);
+castle.compiler = "clang++";
+castle.flags = "-std=c++17 -Ofast -fasm -fms-extensions";
+castle.out = "build/libheliumcppcastle.so";
+castle.files = recursive("src/cpp/castle/*.cpp");
+castle.includes = {"src/cpp/castle/"};
+castle.object_folder = "obj/";
+castle.build();

@@ -1,0 +1,17 @@
+Library castle(dynamic);
+castle.compiler = "clang++";
+castle.flags = "-std=c++17 -Ofast -fasm -fms-extensions";
+castle.out = "build/libheliumcppcastle.so";
+castle.files = recursive("src/cpp/castle/*.cpp");
+castle.includes = {"src/cpp/castle/"};
+castle.object_folder = "obj/";
+castle.build();
+
+Library nbt(dynamic);
+nbt.compiler = "clang++";
+nbt.flags = "-std=c++17 -Ofast -fasm -fms-extensions";
+nbt.out = "build/libheliumcppnbt.so";
+nbt.files = recursive("src/cpp/nbt/*.cpp");
+nbt.includes = {"src/cpp/nbt/"};
+nbt.object_folder = "obj/";
+nbt.build();
