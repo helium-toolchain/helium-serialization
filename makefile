@@ -1,14 +1,5 @@
 #Better Makefile for Helium Serialization. written by Kryog team
-.PHONY : clean nbt castle dotnet c cpp dotnet_nbt dotnet_castle c_nbt c_castle cpp_nbt cpp_castle
-
-MKD = mkdir
-#WARNING: OS-detection in a turing complete build system
-ifeq ($(OS),Windows_NT)
-	RM = del /s /q 
-else
-	RM = rm -rf
-	MKD += -p 
-endif
+.PHONY : clean setup_linux nbt castle dotnet c cpp dotnet_nbt dotnet_castle c_nbt c_castle cpp_nbt cpp_castle
 
 #Compilers
 C_COMPILER = clang
@@ -66,13 +57,22 @@ cpp_castle: $(LIB_OUT_DIR)/libheliumcppcastle.so
 c_nbt: $(LIB_OUT_DIR)/libheliumcnbt.so
 cpp_nbt: $(LIB_OUT_DIR)/libheliumcppnbt.so
 
+MKD = mkdir
+#OS-detection in a turing complete build system
+ifeq ($(OS),Windows_NT)
+	RM = del /s /q 
+else
+	RM = rm -rf
+	MKD += -p 
+endif
+
 #setup
-setup: 
+setup_linux: 
 	@$(MKD) $(C_CASTLE_OBJ_DIR) $(CPP_CASTLE_OBJ_DIR)
 	@$(MKD) $(LIB_OUT_DIR)
 	@$(MKD) Ready
 
-#Building objects
+#Building final library 
 $(LIB_OUT_DIR)/libheliumccastle.so: $(C_CASTLE_OBJ)
 	@$(C_COMPILER) -shared $^ -o $@
 
@@ -100,7 +100,7 @@ clean:
 	$(RM) $(OBJ) $(LIB_OUT_DIR)
 
 
-
+#CW: makefile syntax
 
 
 #ignore these please, these are literal black magic
