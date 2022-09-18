@@ -1,4 +1,14 @@
+#Better Makefile for Helium Serialization. written by Kryog team
 .PHONY : clean nbt castle dotnet c cpp dotnet_nbt dotnet_castle c_nbt c_castle cpp_nbt cpp_castle
+
+MKD = mkdir
+#WARNING: OS-detection in a turing complete build system
+ifeq ($(OS),Windows_NT)
+	RM = del /s /q 
+else
+	RM = rm -rf
+	MKD += -p 
+endif
 
 #Compilers
 C_COMPILER = clang
@@ -44,30 +54,38 @@ DOTNET_CASTLE_DIRECTORIES := Helium.Serialization.Common
 
 DOTNET_CASTLE_FILES := $(foreach dir, $(DOTNET_CASTLE_DIRECTORIES), $(wildcard $(dir)/*))
 
+#nice aliases
 all: dotnet c cpp
 
 c: c_castle c_nbt
 cpp: cpp_castle cpp_nbt
 
+#prevent relinking when it's not needed
+c_castle: $(LIB_OUT_DIR)/libheliumccastle.so
+cpp_castle: $(LIB_OUT_DIR)/libheliumcppcastle.so
+c_nbt: $(LIB_OUT_DIR)/libheliumcnbt.so
+cpp_nbt: $(LIB_OUT_DIR)/libheliumcppnbt.so
+
 #setup
 setup: 
-	@mkdir -p $(C_CASTLE_OBJ_DIR) $(CPP_CASTLE_OBJ_DIR)
-	@mkdir -p $(LIB_OUT_DIR)
-	@echo Ready
+	@$(MKD) $(C_CASTLE_OBJ_DIR) $(CPP_CASTLE_OBJ_DIR)
+	@$(MKD) $(LIB_OUT_DIR)
+	@$(MKD) Ready
 
-#Building
-c_castle: $(C_CASTLE_OBJ)
-	@$(C_COMPILER) -shared $^ -o $(LIB_OUT_DIR)/libheliumccastle.so
+#Building objects
+$(LIB_OUT_DIR)/libheliumccastle.so: $(C_CASTLE_OBJ)
+	@$(C_COMPILER) -shared $^ -o $@
 
-cpp_castle: $(CPP_CASTLE_OBJ)
-	@$(CPP_COMPILER) -shared $^ -o $(LIB_OUT_DIR)/libheliumcppcastle.so
+$(LIB_OUT_DIR)/libheliumcppcastle.so: $(CPP_CASTLE_OBJ)
+	@$(CPP_COMPILER) -shared $^ -o $@
 
-c_nbt: $(C_CASTLE_OBJ)
-	@$(C_COMPILER) -shared $^ -o $(LIB_OUT_DIR)/libheliumcnbt.so
+$(LIB_OUT_DIR)/libheliumcnbt.so: $(C_CASTLE_OBJ)
+	@$(C_COMPILER) -shared $^ -o $@
 
-cpp_nbt: $(CPP_CASTLE_OBJ)
-	@$(CPP_COMPILER) -shared $^ -o $(LIB_OUT_DIR)/libheliumcppnbt.so
+$(LIB_OUT_DIR)/libheliumcppnbt.so: $(CPP_CASTLE_OBJ)
+	@$(CPP_COMPILER) -shared $^ -o $@
 
+#Whatever dotnet does
 dotnet: $(wildcard $(DOTNET_SRC/*))
 	@dotnet pack -o $(LIB_OUT_DIR) -p:SymbolPackageFormat=snupkg --include-symbols --include-source
 
@@ -79,7 +97,9 @@ dotnet_castle: $(DOTNET_CASTLE_FILES)
 
 #cleaning up :D
 clean:
-	rm -rf $(OBJ) $(LIB_OUT_DIR)
+	$(RM) $(OBJ) $(LIB_OUT_DIR)
+
+
 
 
 
