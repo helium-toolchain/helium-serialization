@@ -70,7 +70,7 @@ endif
 setup_linux: 
 	@$(MKD) $(C_CASTLE_OBJ_DIR) $(CPP_CASTLE_OBJ_DIR)
 	@$(MKD) $(LIB_OUT_DIR)
-	@$(MKD) Ready
+	@echo Ready
 
 #Building final library 
 $(LIB_OUT_DIR)/libheliumccastle.so: $(C_CASTLE_OBJ)
