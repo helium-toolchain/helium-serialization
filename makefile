@@ -1,17 +1,37 @@
 .PHONY : clean nbt castle dotnet c cpp dotnet_nbt dotnet_castle c_nbt c_castle cpp_nbt cpp_castle
-DOTNET_COMPILER = dotnet build
-DOTNET_SRC = src/csharp
+
+#Compilers
 C_COMPILER = clang
 CPP_COMPILER = clang++
+
+#Flags
+CPP_FLAGS = -std=c++17 -Ofast -fasm -fms-extensions
+C_FLAGS = -std=c17 -O3 -fasm -fms-extensions
+
+#Sources
 C_SRC = src/c
 CPP_SRC = src/cpp
-BUILD := build
-TEMP_DIRECTORY := temp
-C_NBT_OBJ_DIR := obj/c/nbt
-C_CASTLE_OBJ_DIR := obj/c/castle
-CPP_NBT_OBJ_DIR := obj/cpp/nbt
-CPP_CASTLE_OBJ_DIR := obj/cpp/castle
+DOTNET_COMPILER = dotnet build
+DOTNET_SRC = src/csharp
 
+#build directories
+LIB_OUT_DIR = build
+OBJ = obj
+
+#add your files to OBJ, like this: $(C_CASTLE_OBJ_DIR)/filename.o (the .o is important)
+C_CASTLE_OBJ_DIR = $(OBJ)/c/castle
+C_CASTLE_OBJ = $(C_CASTLE_OBJ_DIR)/castle_index.o
+
+CPP_CASTLE_OBJ_DIR = $(OBJ)/cpp/castle
+CPP_CASTLE_OBJ = $(CPP_CASTLE_OBJ_DIR)/dummy.o
+
+C_NBT_OBJ_DIR = $(OBJ)/c/nbt
+C_NBT_OBJ = $(C_NBT_OBJ_DIR)/dummy.o
+
+CPP_NBT_OBJ_DIR = $(OBJ)/cpp/nbt
+CPP_NBT_OBJ = $(CPP_NBT_OBJ_DIR)/dummy.o
+
+#idk dotnet
 # todo: add more to these as more are created
 DOTNET_NBT_DIRECTORIES := Helium.Serialization.Common \
 	Helium.Serialization.Nbt \
@@ -24,34 +44,32 @@ DOTNET_CASTLE_DIRECTORIES := Helium.Serialization.Common
 
 DOTNET_CASTLE_FILES := $(foreach dir, $(DOTNET_CASTLE_DIRECTORIES), $(wildcard $(dir)/*))
 
-CPP_FLAGS = -std=c++17 -Ofast -fasm -fms-extensions
-C_FLAGS = -std=c17 -O3 -fasm -fms-extensions
+all: dotnet c cpp
 
-C_NBT_FILES := $(wildcard $(C_SRC)/nbt/*.c)
-C_CASTLE_FILES := $(wildcard $(C_SRC)/castle/*.c)
+c: c_castle c_nbt
+cpp: cpp_castle cpp_nbt
 
-CPP_NBT_FILES := $(wildcard $(CPP_SRC)/nbt/*.cpp) $(C_NBT_FILES)
-CPP_CASTLE_FILES := $(wildcard $(CPP_SRC)/nbt/*.cpp) $(CPP_NBT_FILES)
+#setup
+setup: 
+	@mkdir -p $(C_CASTLE_OBJ_DIR) $(CPP_CASTLE_OBJ_DIR)
+	@mkdir -p $(LIB_OUT_DIR)
+	@echo Ready
 
-C_NBT_OBJECTS := $(patsubst $(C_NBT_FILES)/%.c, $(C_NBT_OBJ_DIR)/%.o, $(C_NBT_FILES))
-C_CASTLE_OBJECTS := $(patsubst $(C_CASTLE_FILES)/%.c, $(C_CASTLE_OBJ_DIR)/%.o, $(C_CASTLE_FILES))
+#Building
+c_castle: $(C_CASTLE_OBJ)
+	@$(C_COMPILER) -shared $^ -o $(LIB_OUT_DIR)/libheliumccastle.so
 
-CPP_NBT_OBJECTS := $(patsubst $(CPP_NBT_FILES)/%.c, $(CPP_NBT_OBJ_DIR)/%.o, $(CPP_NBT_FILES))
-CPP_CASTLE_OBJECTS := $(patsubst $(CPP_CASTLE_FILES)/%.c, $(CPP_CASTLE_OBJ_DIR)/%.o, $(CPP_CASTLE_FILES))
+cpp_castle: $(CPP_CASTLE_OBJ)
+	@$(CPP_COMPILER) -shared $^ -o $(LIB_OUT_DIR)/libheliumcppcastle.so
 
-all : dotnet c cpp
+c_nbt: $(C_CASTLE_OBJ)
+	@$(C_COMPILER) -shared $^ -o $(LIB_OUT_DIR)/libheliumcnbt.so
 
-nbt : dotnet_nbt c_nbt cpp_nbt
+cpp_nbt: $(CPP_CASTLE_OBJ)
+	@$(CPP_COMPILER) -shared $^ -o $(LIB_OUT_DIR)/libheliumcppnbt.so
 
-castle : dotnet_castle c_castle cpp_castle
-
-# for dotnet we actually have a shared library to build
-dotnet : $(wildcard $(DOTNET_SRC/*))
-	@dotnet pack -o $(BUILD) -p:SymbolPackageFormat=snupkg --include-symbols --include-source
-
-c : c_nbt c_castle
-
-cpp : cpp_nbt cpp_castle
+dotnet: $(wildcard $(DOTNET_SRC/*))
+	@dotnet pack -o $(LIB_OUT_DIR) -p:SymbolPackageFormat=snupkg --include-symbols --include-source
 
 dotnet_nbt : $(DOTNET_NBT_FILES)
 	@dotnet pack -o $(BUILD) ./$(DOTNET_SRC)/Helium.Serialization.Nbt -p:SymbolPackageFormat=snupkg --include-symbols --include-source
@@ -59,30 +77,21 @@ dotnet_nbt : $(DOTNET_NBT_FILES)
 dotnet_castle: $(DOTNET_CASTLE_FILES)
 	@dotnet pack -o $(BUILD) ./$(DOTNET_SRC)/Helium.Serialization.Castle -p:SymbolPackageFormat=snupkg --include-symbols --include-source 
 
-c_nbt : $(C_NBT_OBJECTS)
-	@$(C_COMPILER) -shared $^ -o $(BUILD)/libheliumcnbt.so
+#cleaning up :D
+clean:
+	rm -rf $(OBJ) $(LIB_OUT_DIR)
 
-c_castle : $(C_CASTLE_OBJECTS)
-	@$(C_COMPILER) -shared $^ -o $(BUILD)/libheliumccastle.so
 
-cpp_nbt : $(CPP_NBT_OBJECTS)
-	@$(C_COMPILER) -shared $^ -o $(BUILD)/libheliumcppnbt.so
 
-cpp_castle : $(CPP_CASTLE_OBJECTS)
-	@$(C_COMPILER) -shared $^ -o $(BUILD)/libheliumcppcastle.so
+#ignore these please, these are literal black magic
+$(C_CASTLE_OBJ_DIR)/%.o: $(C_SRC)/castle/%.c
+	@$(C_COMPILER) $(C_FLAGS) -c $< -o $@
 
-$(C_NBT_OBJ_DIR)/%.o : $(C_NBT_FILES)
-	@$(C_COMPILER) -I$(C_NBT_FILES) $(C_FLAGS) -c $< -o $@
+$(CPP_CASTLE_OBJ_DIR)/%.o: $(CPP_SRC)/castle/%.cpp
+	@$(C_COMPILER) $(CPP_FLAGS) -c $< -o $@
 
-$(C_CASTLE_OBJ_DIR)/%.o : $(C_CASTLE_FILES)
-	@$(C_COMPILER) -I$(C_CASTLE_FILES) $(C_FLAGS) -c $< -o $@
+$(C_NBT_OBJ_DIR)/%.o: $(C_SRC)/nbt/%.c
+	@$(C_COMPILER) $(C_FLAGS) -c $< -o $@
 
-$(CPP_NBT_OBJ_DIR)/%.o : $(CPP_NBT_FILES)
-	@$(CPP_COMPILER) -I$(C_NBT_FILES) $(C_FLAGS) -c $< -o $@
-
-$(CPP_CASTLE_OBJ_DIR)/%.o : $(CPP_CASTLE_FILES)
-	@$(CPP_COMPILER) -I$(CPP_CASTLE_FILES) $(CPP_FLAGS) -c $< -o $@
-
-clean : 
-	-rm -rf $(BUILD)
-	-rm -rf obj
+$(CPP_NBT_OBJ_DIR)/%.o: $(CPP_SRC)/nbt/%.cpp
+	@$(C_COMPILER) $(CPP_FLAGS) -c $< -o $@
