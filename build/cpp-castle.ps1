@@ -1,1 +1,1 @@
-clang++ -std=c++17 -Ofast -fasm -fms-extensions -c ./src/cpp/castle/index/inc.cpp -o ./obj/cpp/castle_index.o
+clang++ -std=c++17 -Ofast -fasm -fms-extensions -march=native -c ./src/cpp/castle/index/inc.cpp -o ./obj/cpp/castle_index.o
