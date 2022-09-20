@@ -1,2 +1,2 @@
-Remove-Item -Recurse -Force ../out
-Remove-Item -Recurse -Force ../obj
+Remove-Item -Recurse -Force ./out
+Remove-Item -Recurse -Force ./obj

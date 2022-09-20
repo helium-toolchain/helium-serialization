@@ -1,2 +1,2 @@
-rm -rf ../out
-rm -rf ../obj
+rm -rf ./out
+rm -rf ./obj

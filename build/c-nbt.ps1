@@ -1,1 +1,1 @@
-clang -std=c17 -O3 -fasm -fms-extensions -c ../src/c/nbt/index/inc.c -o ../obj/c/nbt_index.o
+clang -std=c17 -O3 -fasm -fms-extensions -c ./src/c/nbt/index/inc.c -o ./obj/c/nbt_index.o
