@@ -14,7 +14,8 @@
 *.userprefs
 
 # C/CPP related files
-[Bb]uild/
+[Oo]ut/
+[Oo]bj/
 /.vscode/
 !/.vscode/settings.json
 
