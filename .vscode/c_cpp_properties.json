@@ -3,8 +3,6 @@
         {
             "name": "Win32",
             "intelliSenseMode": "windows-gcc-x64",
-            "cStandard": "c17",
-            "cppStandard": "c++17",
             "includePath": [
                 "${workspaceFolder}/inc/**"
             ],
@@ -14,11 +12,11 @@
         {
             "name": "Linux",
             "intelliSenseMode": "linux-gcc-x64",
-            "cStandard": "c17",
-            "cppStandard": "c++17",
             "includePath": [
                 "${workspaceFolder}/inc/**"
-            ]
+            ],
+            "configurationProvider": "ms-vscode.cmake-tools",
+            "compileCommands": "${workspaceFolder}/build/compile_commands.json"
         }
     ],
     "version": 4

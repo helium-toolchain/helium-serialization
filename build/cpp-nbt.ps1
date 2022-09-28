@@ -1,1 +1,0 @@
-clang++ -std=c++17 -Ofast -fasm -fms-extensions -march=native -c ./src/cpp/nbt/index/inc.cpp -o ./obj/cpp/nbt_index.o

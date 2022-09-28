@@ -16,8 +16,10 @@
 # C/CPP related files
 [Oo]ut/
 [Oo]bj/
+[Bb]uild/
 /.vscode/
 !/.vscode/settings.json
+!/.vscode/c_cpp_properties.json
 
 # Mono auto generated files
 mono_crash.*
