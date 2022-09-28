@@ -2,7 +2,7 @@
 
 #include<stdint.h>
 
-// takes data and reverses its endianness.
+// Takes an array of 16-bit integers and reverses their endianness.
 void reverse_endian_16(uint16_t *data, int32_t length);
 
 // takes data and reverses its endianness.
