@@ -8,7 +8,7 @@ void reverse_endian_16(uint16_t *data, int32_t length) {
     uint8_t *pointer = (uint8_t*)data;
     int32_t processed = 0;
 
-#if defined(__AVX512F__) && defined(__AVX512VBMI__)
+#ifdef __AVX512F__
     if(length > 64) {
         __m512i mask = _mm512_set_epi8(62, 63, 60, 61, 58, 59, 56, 57, 54, 55, 52, 53, 50, 51, 48, 49,
             46, 47, 44, 45, 42, 43, 40, 41, 38, 39, 36, 37, 34, 35, 32, 33,
@@ -19,7 +19,11 @@ void reverse_endian_16(uint16_t *data, int32_t length) {
 
         for(int32_t i = 0; i < iterations; ++i) {
             __m512i vec = _mm512_loadu_si512(pointer + (i * 64));
+#ifdef __AVX512VBMI__
             vec = _mm512_permutexvar_epi8(mask, vec);
+#elif __AVX512F__
+            vec = _mm512_shuffle_epi8(vec, mask);
+#endif
             _mm512_storeu_si512(pointer + (i * 64), vec);
         }
 
