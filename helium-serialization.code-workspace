@@ -6,9 +6,7 @@
 	],
 	"settings": {
 		"files.associations": {
-			"*.json": "jsonc",
-			"immintrin.h": "c",
-			"avx512vbmiintrin.h": "c"
+			"*.json": "jsonc"
 		}
 	}
 }
